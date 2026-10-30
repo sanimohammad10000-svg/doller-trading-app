@@ -1,0 +1,10 @@
+﻿services:
+  doller-app:
+    build: .
+    container_name: doller_trading_engine
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./doller.db:/app/doller.db
+      - ./config/kill_switch.json:/app/config/kill_switch.json
+    restart: unless-stopped

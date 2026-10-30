@@ -1,0 +1,6 @@
+﻿global:
+  max_order_value: 50000
+  max_daily_loss_pct: 2.0
+  
+per_trade:
+  max_quantity: 1000

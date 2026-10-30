@@ -1,0 +1,9 @@
+﻿pandas
+numpy
+pyyaml
+python-dotenv
+streamlit
+plotly
+altair
+scikit-learn
+requests
