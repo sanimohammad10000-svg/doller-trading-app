@@ -14,6 +14,7 @@ import streamlit as st
 from core.event_bus import EventBus
 from core.events import MarketEvent, SignalEvent, OrderEvent, FillEvent
 from data.mock_adapter import MockDataAdapter
+from data.database import DatabaseManager
 from strategy.ml_strategy import MLStrategy
 from risk.manager import RiskManager
 from execution.order_manager import OrderManager
@@ -38,15 +39,8 @@ def init_system():
     return portfolio, adapter
 
 def get_recent_trades():
-    db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'doller.db'))
-    try:
-        conn = sqlite3.connect(db_path)
-        orders_df = pd.read_sql_query("SELECT symbol, direction, quantity, price, status, created_at FROM orders ORDER BY created_at DESC LIMIT 5", conn)
-        fills_df = pd.read_sql_query("SELECT symbol, direction, quantity, fill_price, commission, filled_at FROM fills ORDER BY filled_at DESC LIMIT 5", conn)
-        conn.close()
-        return orders_df, fills_df
-    except Exception:
-        return pd.DataFrame(), pd.DataFrame()
+    db = DatabaseManager()
+    return db.get_recent_trades()
 
 def calculate_advanced_analytics(equity_history):
     if len(equity_history) < 2:
@@ -205,3 +199,4 @@ with tab2:
 
 time.sleep(1)
 st.rerun()
+
