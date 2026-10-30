@@ -10,6 +10,12 @@ class DatabaseManager:
         self.db_url = None
         try:
             self.db_url = st.secrets["DATABASE_URL"]
+            # SSL বাধ্যতামূলক করা হচ্ছে
+            if self.db_url and "sslmode=require" not in self.db_url:
+                if "?" in self.db_url:
+                    self.db_url += "&sslmode=require"
+                else:
+                    self.db_url += "?sslmode=require"
         except Exception:
             pass
         self._create_tables()
