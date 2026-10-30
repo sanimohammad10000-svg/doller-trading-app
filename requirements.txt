@@ -5,5 +5,5 @@ python-dotenv
 streamlit
 plotly
 altair
-scikit-learn
+scikit-learn==1.4.2
 requests
